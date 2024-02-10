@@ -8,7 +8,6 @@ import userRouter from './router/userRouter.js';
 import recipeRouter from './router/recipeRouter.js';
 import connect from './database/conn.js';
 import swaggerDocs from "./swagger.js";
-import client from "prom-client";
 
 dotenv.config()
 const app = express();
@@ -43,11 +42,6 @@ app.get('/', (req, res) => {
 /** api routes */
 app.use('/api/users', userRouter)
 app.use('/api/recipe', recipeRouter)
-
-app.get('/metrics', (req, res) => {
-  res.set('Content-Type', client.register.contentType)
-  res.end(client.register.metrics()) 
-})
 
 connect().then(() => {
     try {
